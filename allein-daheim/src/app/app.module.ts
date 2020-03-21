@@ -16,6 +16,7 @@ import { ChatStorageProvider } from '../providers/chat-storage/chat-storage';
 import { ChatListPage } from '../pages/chat-list/chat-list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchPage } from '../pages/search/search';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomePage,
     ListPage,
     TextchatPage,
-    ChatListPage
+    ChatListPage,
+    SearchPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomePage,
     ListPage,
     TextchatPage,
-    ChatListPage
+    ChatListPage,
+    SearchPage
   ],
   providers: [
     StatusBar,
