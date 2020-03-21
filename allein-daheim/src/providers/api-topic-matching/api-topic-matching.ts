@@ -9,8 +9,7 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class ApiTopicMatchingProvider {
-  apiUrl='http:localhost:8080/api';
-
+  apiUrl = 'http://localhost:8080/api';
 
   constructor(public http: HttpClient) {
     console.log('Hello ApiTopicMatchingProvider Provider');
