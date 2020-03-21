@@ -1,4 +1,4 @@
-import { Component, ViewChild, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, ViewChild, trigger, state, style, transition, animate, AfterViewChecked } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TextMessage } from './text-message/text-message';
 
@@ -27,7 +27,7 @@ const KEYCODE_ENTER = 13;
     ]),
   ]
 })
-export class TextchatPage {
+export class TextchatPage implements AfterViewChecked {
 
   @ViewChild('messageTextBox') messageTextBox;
   @ViewChild('messageListElement') messageListElement;
@@ -62,6 +62,10 @@ export class TextchatPage {
     console.log('ionViewDidLoad TextchatPage');
   }
 
+  ngAfterViewChecked() {
+    this.messageListElement.scrollToBottom();
+  }
+
   messageBoxKeypress(keyCode: number) {
     if (keyCode == KEYCODE_ENTER) {
       this.sendMessage();
@@ -78,7 +82,7 @@ export class TextchatPage {
                          sender:   0,
                          receiver: this.receiverId };
     this.messages.push(newMessage);
-    this.messageListElement.scrollToBottom();
     this.messageTextBox.value = '';
   }
+
 }
