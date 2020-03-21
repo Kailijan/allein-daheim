@@ -1,15 +1,37 @@
-<!--
-  Generated template for the TextchatPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
-    <ion-title>textchat</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Textchat mit {{receiverName}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content padding #messageListElement>
+  <div class="centered-content">
+    <ion-grid>
+      <ion-row *ngFor="let message of $messsages | async" [class.ion-justify-content-start]="message.receiver!=receiverId" [class.ion-justify-content-end]="message.receiver==receiverId">
+        <ion-col @fadeIn>
+          <div class="message-bubble" [class.my-message]="message.receiver==receiverId">
+            {{message.content}}
+            <small>{{message.sent | date : 'HH:mm'}}</small>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="centered-content">
+      <ion-item style="padding: 0">
+        <ion-input #messageTextBox type="text" value="" placeholder="Nachricht eingeben" (keypress)="messageBoxKeypress($event.keyCode)"></ion-input>
+        <button ion-button primary item-end style="width: 30px; height: 30px;" (click)="sendMessage()">
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </ion-item>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+

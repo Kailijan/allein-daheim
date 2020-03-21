@@ -86,3 +86,11 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+
+
+.centered-content {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}

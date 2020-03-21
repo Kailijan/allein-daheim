@@ -4,8 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Nav, Platform } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { TextchatPage } from '../pages/textchat/textchat';
 import { SearchPage } from '../pages/search/search';
+import { ChatListPage } from '../pages/chat-list/chat-list';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { SearchPage } from '../pages/search/search';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = SearchPage;
+  rootPage: any = ChatListPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -26,7 +26,7 @@ export class MyApp {
       { title: 'Search', component: SearchPage },
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Textchat', component: TextchatPage },
+      { title: 'ChatList', component: ChatListPage }
     ];
 
   }
