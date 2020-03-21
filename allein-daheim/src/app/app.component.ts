@@ -5,6 +5,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TextchatPage } from '../pages/textchat/textchat';
+import { ChatListPage } from '../pages/chat-list/chat-list';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { TextchatPage } from '../pages/textchat/textchat';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = ChatListPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -24,7 +25,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Textchat', component: TextchatPage }
+      { title: 'ChatList', component: ChatListPage }
     ];
 
   }

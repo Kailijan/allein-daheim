@@ -11,13 +11,17 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiTopicMatchingProvider } from '../providers/api-topic-matching/api-topic-matching';
 import { TextchatPage } from '../pages/textchat/textchat';
+import { ApiUsersProvider } from '../providers/api-users/api-users';
+import { ChatStorageProvider } from '../providers/chat-storage/chat-storage';
+import { ChatListPage } from '../pages/chat-list/chat-list';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    TextchatPage
+    TextchatPage,
+    ChatListPage
   ],
   imports: [
     BrowserModule,
@@ -29,13 +33,16 @@ import { TextchatPage } from '../pages/textchat/textchat';
     MyApp,
     HomePage,
     ListPage,
-    TextchatPage
+    TextchatPage,
+    ChatListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ApiTopicMatchingProvider
+    ApiTopicMatchingProvider,
+    ApiUsersProvider,
+    ChatStorageProvider
   ]
 })
 export class AppModule {}
