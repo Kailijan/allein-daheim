@@ -13,13 +13,15 @@ import { ApiTopicMatchingProvider } from '../providers/api-topic-matching/api-to
 import { TextchatPage } from '../pages/textchat/textchat';
 import { ApiUsersProvider } from '../providers/api-users/api-users';
 import { ChatStorageProvider } from '../providers/chat-storage/chat-storage';
+import { ChatListPage } from '../pages/chat-list/chat-list';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    TextchatPage
+    TextchatPage,
+    ChatListPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { ChatStorageProvider } from '../providers/chat-storage/chat-storage';
     MyApp,
     HomePage,
     ListPage,
-    TextchatPage
+    TextchatPage,
+    ChatListPage
   ],
   providers: [
     StatusBar,

@@ -10,8 +10,23 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiUsersProvider {
 
-  constructor(public http: HttpClient) {
+  private users = [
+    { name: 'peter', id: 1 }
+  ]
+
+  constructor() {
     console.log('Hello ApiUsersProvider Provider');
+  }
+
+  public getUser(userId: number) {
+    const filteredUsers = this.users.filter((user) => user.id == userId);
+    if (filteredUsers.length == 0)
+      return undefined;
+    return filteredUsers[0];
+  }
+
+  public addUser(userId: number, userName: string) {
+    this.users.push({ id: userId, name: userName });
   }
 
 }
