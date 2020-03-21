@@ -14,11 +14,11 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Wählen Sie ein Thema, das Sie interessiert</h3>
-
-  <select [(ngModel)]="selectedTopic">
-      <option *ngFor="let topic of topicList" [value]="topic">
-        {{topic.name}}
-      </option>
-  </select>
+    <div class="column small-12 large-2">
+        <label class="sbw_light">Title:</label><br />
+        <input type="text" list="topicsDataList" [(ngModel)]="selectedTopic" [formControl]="topicForm" (change)="logCurrentTopic()">
+        <datalist id="topicsDataList">
+            <option *ngFor="let topic of topicList" value="{{topic.name}}" >{{topic.name}}</option>
+        </datalist>
+    </div>
 </ion-content>
