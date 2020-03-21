@@ -9,12 +9,14 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiTopicMatchingProvider } from '../providers/api-topic-matching/api-topic-matching';
+import { TextchatPage } from '../pages/textchat/textchat';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    TextchatPage
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,8 @@ import { ApiTopicMatchingProvider } from '../providers/api-topic-matching/api-to
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    TextchatPage
   ],
   providers: [
     StatusBar,
