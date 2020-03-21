@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
+import { TextMessage } from './text-message/text-message';
 
 /**
  * Generated class for the TextchatPage page.
@@ -20,8 +21,10 @@ export class TextchatPage {
   @ViewChild('messageTextBox') messageTextBox;
 
   public receiverName = 'Peter';
+  public messages: Array<TextMessage>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.messages = new Array<TextMessage>();
   }
 
   ionViewDidLoad() {
@@ -31,7 +34,11 @@ export class TextchatPage {
   messageBoxKeypress(keyCode: number) {
     if (keyCode == KEYCODE_ENTER) {
       this.messageTextBox.value = '';
+      this.sendMessage();
     }
   }
 
+  sendMessage() {
+    this.messages.push({ message: this.messageTextBox.value, sent: new Date(), sender: 0, receiver: 0 });
+  }
 }
