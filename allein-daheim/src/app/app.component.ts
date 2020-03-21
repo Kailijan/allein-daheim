@@ -5,6 +5,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TextchatPage } from '../pages/textchat/textchat';
+import { SearchPage } from '../pages/search/search';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Textchat', component: TextchatPage }
+      { title: 'Textchat', component: TextchatPage },
+      { title: 'Search', component: SearchPage },
     ];
 
   }
