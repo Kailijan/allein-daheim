@@ -65,7 +65,6 @@ export class TextchatPage {
   messageBoxKeypress(keyCode: number) {
     if (keyCode == KEYCODE_ENTER) {
       this.sendMessage();
-      this.messageTextBox.value = '';
     }
   }
 
@@ -80,5 +79,6 @@ export class TextchatPage {
                          receiver: this.receiverId };
     this.messages.push(newMessage);
     this.messageListElement.scrollToBottom();
+    this.messageTextBox.value = '';
   }
 }
