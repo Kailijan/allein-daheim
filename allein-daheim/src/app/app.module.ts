@@ -10,6 +10,7 @@ import { SearchPage } from '../pages/search/search';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiTopicMatchingProvider } from '../providers/api-topic-matching/api-topic-matching';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ApiTopicMatchingProvider } from '../providers/api-topic-matching/api-to
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    ReactiveFormsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
