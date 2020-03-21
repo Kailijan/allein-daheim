@@ -6,14 +6,19 @@
 -->
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Suche</ion-title>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-  <h3>Finden Sie einen passenden Chat</h3>
+  <h3>Wählen Sie ein Thema, das Sie interessiert</h3>
 
-  <ion-searchbar></ion-searchbar>
-  <button ion-button secondary>Suche starten</button>
+  <select [(ngModel)]="selectedTopic">
+      <option *ngFor="let topic of topicList" [value]="topic">
+        {{topic.name}}
+      </option>
+  </select>
 </ion-content>

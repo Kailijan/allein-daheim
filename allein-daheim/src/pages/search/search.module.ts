@@ -7,7 +7,7 @@ import { SearchPage } from './search';
     SearchPage,
   ],
   imports: [
-    IonicPageModule.forChild(SuchePage),
+    IonicPageModule.forChild(SearchPage),
   ],
 })
 export class SearchPageModule {}
