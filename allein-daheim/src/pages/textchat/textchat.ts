@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef, trigger, state, style, transition, animate, ViewChildren } from '@angular/core';
-import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
+import { Component, ViewChild, trigger, state, style, transition, animate } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TextMessage } from './text-message/text-message';
 
 /**
