@@ -6,10 +6,28 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>textchat</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Textchat mit {{receiverName}}</ion-title>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <div class="centered-content">
 
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="centered-content">
+      <ion-item style="padding: 0">
+        <ion-input #messageTextBox type="text" value="" placeholder="Nachricht eingeben" (keypress)="messageBoxKeypress($event.keyCode)"></ion-input>
+        <button ion-button primary item-end style="width: 25px;">{{'>'}}</button>
+      </ion-item>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+

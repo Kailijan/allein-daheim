@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -8,6 +8,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
+const KEYCODE_ENTER = 13;
+
 @IonicPage()
 @Component({
   selector: 'page-textchat',
@@ -15,11 +17,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TextchatPage {
 
+  @ViewChild('messageTextBox') messageTextBox;
+
+  public receiverName = 'Peter';
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TextchatPage');
+  }
+
+  messageBoxKeypress(keyCode: number) {
+    if (keyCode == KEYCODE_ENTER) {
+      this.messageTextBox.value = '';
+    }
   }
 
 }
