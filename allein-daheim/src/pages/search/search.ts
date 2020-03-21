@@ -29,17 +29,14 @@ export class SearchPage {
   }
 
   ngOnInit() {
-
     console.log(this.topicList);
+    this.topicForm.valueChanges.subscribe(change => {
+      console.log(change);
+    });
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
-  }
-
-
-  logCurrentTopic() {
-    console.log(this.topicForm.value);
   }
 }
