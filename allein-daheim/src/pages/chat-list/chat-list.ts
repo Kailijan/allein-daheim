@@ -35,7 +35,7 @@ export class ChatListPage {
   }
 
   showChat(chat: Chat) {
-    this.navCtrl.setRoot(TextchatPage, { receiveId: chat.receiver, sendId: chat.sender })
+    this.navCtrl.push(TextchatPage, { receiveId: chat.receiver, sendId: chat.sender });
   }
 
 }
