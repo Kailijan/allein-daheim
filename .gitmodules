@@ -1,0 +1,3 @@
+[submodule "allein-daheim-backend"]
+	path = allein-daheim-backend
+	url = git@github.com:Kailijan/allein-daheim-backend.git
