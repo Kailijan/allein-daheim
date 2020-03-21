@@ -27,7 +27,9 @@
     <div class="centered-content">
       <ion-item style="padding: 0">
         <ion-input #messageTextBox type="text" value="" placeholder="Nachricht eingeben" (keypress)="messageBoxKeypress($event.keyCode)"></ion-input>
-        <button ion-button primary item-end style="width: 25px;" (click)="sendMessage()">{{'>'}}</button>
+        <button ion-button primary item-end style="width: 30px; height: 30px;" (click)="sendMessage()">
+          <ion-icon name="send"></ion-icon>
+        </button>
       </ion-item>
     </div>
   </ion-toolbar>
