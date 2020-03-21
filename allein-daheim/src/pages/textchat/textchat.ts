@@ -1,5 +1,8 @@
-import { Component, ViewChild, trigger, state, style, transition, animate, AfterViewChecked } from '@angular/core';
+import { Component, ViewChild, trigger, state, style, transition, animate, AfterViewChecked, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ChatStorageProvider } from '../../providers/chat-storage/chat-storage';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { Observable } from 'rxjs/Observable';
 import { TextMessage } from './text-message/text-message';
 
 /**
@@ -32,30 +35,16 @@ export class TextchatPage implements AfterViewChecked {
   @ViewChild('messageTextBox') messageTextBox;
   @ViewChild('messageListElement') messageListElement;
 
+  @Input() receiverId;
+  @Input() senderId;
+
+  public $messsages: Observable<Array<TextMessage>>;
+
   public receiverName = 'Peter';
-  public receiverId = 20;
-  public messages: Array<TextMessage>;
 
-  getRandomInt(max): number {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.messages = new Array<TextMessage>();
-    for (var i = 0; i < 8; i++) {
-      const newMessage = {
-        content:  Math.random().toString(36),
-        sent:     new Date(),
-        sender:   0,
-        receiver: this.getRandomInt(2) == 1 ? this.receiverId : 0};
-      this.messages.push(newMessage)
-    }
-    const newMessage = {
-      content:  "alksdjflkasdlkfakjsdfkjaskdjfklasdjkfkjasdjkfhsakjdfhasdkjfhaskdjfhaksjldfhakjsdhfkjasdhf asdkjfhaksjdhfkajshdf kjasdhfkjahsdfkjhasdkjfhaksjdfhaksjdhfkjasdhkfjashdfkjashdfkjasdhfkjasdhfkjasdhfkjashdfkjahsdkfjhasdkfjhasdkjfhaksjkdfhaskdjfhaksjdfh",
-      sent:     new Date(),
-      sender:   0,
-      receiver: this.getRandomInt(2) == 1 ? this.receiverId : 0};
-    this.messages.push(newMessage)
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private chatStorage: ChatStorageProvider) {
+    this.$messsages = this.chatStorage.getMessages(this.receiverId);
   }
 
   ionViewDidLoad() {
@@ -79,9 +68,9 @@ export class TextchatPage implements AfterViewChecked {
 
     const newMessage = { content:  this.messageTextBox.value,
                          sent:     new Date(),
-                         sender:   0,
+                         sender:   this.senderId,
                          receiver: this.receiverId };
-    this.messages.push(newMessage);
+    this.chatStorage.addMessage(newMessage);
     this.messageTextBox.value = '';
   }
 
