@@ -8,41 +8,44 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-list-header>
-      Letzte Chats
-    </ion-list-header>
+  <div class="centered-content">
 
-    <button ion-item *ngFor="let chat of $messsages | async" (click)="showChat(chat)">
-      <h2>{{ this.userController.getUser(chat.receiver)?.name }}</h2>
-      <p>{{ (chat.lastMessage | async).content }}</p>
-      <div class="item-note" item-end>
-        <ion-badge color="primary">0</ion-badge>
-        <!-- {{chat.unreadMessages}} -->
-      </div>
-    </button>
-  </ion-list>
+    <ion-list>
+      <ion-list-header>
+        Letzte Chats
+      </ion-list-header>
 
-
-  <ion-list showWhen="landscape">
-    <ion-item>
-      <button color="danger" ion-button>
-        <ion-icon name="trash"></ion-icon>
+      <button ion-item *ngFor="let chat of $messsages | async" (click)="showChat(chat)">
+        <h2>{{ this.userController.getUser(chat.receiver)?.name }}</h2>
+        <p>{{ (chat.lastMessage | async).content }}</p>
+        <div class="item-note" item-end>
+          <ion-badge color="primary">0</ion-badge>
+          <!-- {{chat.unreadMessages}} -->
+        </div>
       </button>
-    </ion-item>
-  </ion-list>
+    </ion-list>
 
-  <ion-list showWhen="portrait">
-    <ion-item-sliding>
+
+    <ion-list showWhen="landscape">
       <ion-item>
-        <ion-label>Item</ion-label>
-      </ion-item>
-      <ion-item-options side="end">
         <button color="danger" ion-button>
           <ion-icon name="trash"></ion-icon>
         </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+      </ion-item>
+    </ion-list>
 
+    <ion-list showWhen="portrait">
+      <ion-item-sliding>
+        <ion-item>
+          <ion-label>Item</ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <button color="danger" ion-button>
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+  </div>
 </ion-content>
