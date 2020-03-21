@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, ViewChild, ElementRef, trigger, state, style, transition, animate, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
 import { TextMessage } from './text-message/text-message';
 
@@ -30,6 +30,7 @@ const KEYCODE_ENTER = 13;
 export class TextchatPage {
 
   @ViewChild('messageTextBox') messageTextBox;
+  @ViewChild('messageListElement') messageListElement;
 
   public receiverName = 'Peter';
   public receiverId = 20;
@@ -78,5 +79,6 @@ export class TextchatPage {
                          sender:   0,
                          receiver: this.receiverId };
     this.messages.push(newMessage);
+    this.messageListElement.scrollToBottom();
   }
 }
