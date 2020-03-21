@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiTopicMatchingProvider } from '../providers/api-topic-matching/api-topic-matching';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     ReactiveFormsModule,
+    BrowserModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

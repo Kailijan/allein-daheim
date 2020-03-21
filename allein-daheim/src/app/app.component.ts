@@ -14,7 +14,7 @@ import { SearchPage } from '../pages/search/search';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = SearchPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -23,10 +23,10 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Search', component: SearchPage },
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
       { title: 'Textchat', component: TextchatPage },
-      { title: 'Search', component: SearchPage },
     ];
 
   }
