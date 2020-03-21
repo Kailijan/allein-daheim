@@ -21,7 +21,7 @@
         <ion-col @fadeIn>
           <div class="message-bubble" [class.my-message]="message.receiver==receiverId">
             {{message.content}}
-            <small>{{message.sent.getHours() + ':' + message.sent.getMinutes()}}</small>
+            <small>{{message.sent | date : 'hh:mm'}}</small>
           </div>
         </ion-col>
       </ion-row>
