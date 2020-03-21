@@ -13,7 +13,7 @@ import { TextchatPage } from '../pages/textchat/textchat';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = TextchatPage;
 
   pages: Array<{title: string, component: any}>;
 
