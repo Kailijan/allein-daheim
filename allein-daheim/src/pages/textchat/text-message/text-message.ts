@@ -1,5 +1,5 @@
 export interface TextMessage {
-  message: string;
+  content: string;
   sent: Date;
   sender: number;
   receiver: number;

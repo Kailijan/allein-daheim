@@ -15,7 +15,16 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="centered-content">
+  <div class="scrollable centered-content">
+    <ion-grid>
+      <ion-row *ngFor="let message of messages" [class.ion-justify-content-start]="message.receiver!=receiverId" [class.ion-justify-content-end]="message.receiver==receiverId">
+        <ion-col @fadeIn>
+          <div class="message-bubble" [class.my-message]="message.receiver==receiverId">
+            {{message.content}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
   </div>
 </ion-content>
