@@ -16,7 +16,7 @@
 <ion-content padding>
     <div class="column small-12 large-2">
         <label class="sbw_light">Title:</label><br />
-        <input type="text" list="topicsDataList" [(ngModel)]="selectedTopic" [formControl]="topicForm" (change)="logCurrentTopic()">
+        <input type="text" list="topicsDataList" [(ngModel)]="selectedTopic" [formControl]="topicForm">
         <datalist id="topicsDataList">
             <option *ngFor="let topic of topicList" value="{{topic.name}}" >{{topic.name}}</option>
         </datalist>
