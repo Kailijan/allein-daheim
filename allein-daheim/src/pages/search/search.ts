@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { ApiTopicMatchingProvider } from '../../providers/api-topic-matching/api-topic-matching';
+import { MatchingPage } from '../matching/matching';
 
 @IonicPage()
 @Component({
@@ -43,4 +44,8 @@ export class SearchPage {
     }
   }
 
+  // Check if size > 0;
+  sendSelectedTopicsIds() {
+    this.navCtrl.push(MatchingPage, { topicIds: this.selectedTopicsIds });
+  }
 }
