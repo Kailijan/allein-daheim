@@ -14,6 +14,7 @@ import { TextchatPage } from '../pages/textchat/textchat';
 import { ApiUsersProvider } from '../providers/api-users/api-users';
 import { ChatStorageProvider } from '../providers/chat-storage/chat-storage';
 import { ChatListPage } from '../pages/chat-list/chat-list';
+import { MatchingPage } from '../pages/matching/matching';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ChatListPage } from '../pages/chat-list/chat-list';
     HomePage,
     ListPage,
     TextchatPage,
-    ChatListPage
+    ChatListPage,
+    MatchingPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { ChatListPage } from '../pages/chat-list/chat-list';
     HomePage,
     ListPage,
     TextchatPage,
-    ChatListPage
+    ChatListPage,
+    MatchingPage
   ],
   providers: [
     StatusBar,

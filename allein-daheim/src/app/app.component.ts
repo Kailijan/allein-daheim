@@ -4,8 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Nav, Platform } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { TextchatPage } from '../pages/textchat/textchat';
 import { ChatListPage } from '../pages/chat-list/chat-list';
+import { MatchingPage } from '../pages/matching/matching';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { ChatListPage } from '../pages/chat-list/chat-list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ChatListPage;
+  rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -25,7 +25,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'ChatList', component: ChatListPage }
+      { title: 'ChatList', component: ChatListPage },
+      { title: 'Matching', component: MatchingPage },
     ];
 
   }
@@ -42,6 +43,10 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    if (page.title === 'Matching') {
+      this.nav.push(page.component);
+      return;
+    }
     this.nav.setRoot(page.component);
   }
 }
