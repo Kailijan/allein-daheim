@@ -47,20 +47,35 @@ export class ChatStorageProvider {
     }
   }
 
+  private updateObservables(): void {
+    this.$messages.next(this.messageArray);
+  }
+
   public getMyMessageId(): number {
     return this.myMessageId;
   }
 
   public addMessage(message: TextMessage) {
     this.messageArray.push(message);
-    this.$messages.next(this.messageArray);
+    this.updateObservables();
+  }
+
+  private filterMessagesByChatId(list: Array<TextMessage>, chatId: number): TextMessage[] {
+    return list.filter((message) => {
+      return message.receiver == chatId || message.sender == chatId;
+    });
+  }
+
+  public setChatToReadState(chatId: number): void {
+    for (let message of this.filterMessagesByChatId(this.messageArray, chatId)) {
+      message.unread = false;
+    }
+    this.updateObservables();
   }
 
   public getMessages(chatId: number): Observable<Array<TextMessage>> {
     return this.$messages.map(
-      (list) => list.filter((message) => {
-        return message.receiver == chatId || message.sender == chatId;
-      })
+      list => this.filterMessagesByChatId(list, chatId)
     );
   }
 

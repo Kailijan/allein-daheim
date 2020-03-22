@@ -37,11 +37,12 @@ export class TextchatPage implements AfterViewChecked {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private chatStorage: ChatStorageProvider,
-              userService: ApiUsersProvider) {
+              private userService: ApiUsersProvider) {
     this.receiverId = navParams.data.receiveId;
     this.senderId = navParams.data.sendId;
     this.$messsages = this.chatStorage.getMessages(this.receiverId);
-    this.receiverName = userService.getUser(this.receiverId).name;
+    this.chatStorage.setChatToReadState(this.receiverId);
+    this.receiverName = this.userService.getUser(this.receiverId).name;
   }
 
   ionViewDidLoad() {
