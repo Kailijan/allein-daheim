@@ -29,12 +29,12 @@ export class MatchingPage {
     // { title: "Zitat", text: "", author: "" },
   ]
 
+  private selectedTopicIds: number[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.infoTexts = this.infoTexts.sort(() => (Math.random() > 0.5) ? 1 : -1);
-  }
+    this.selectedTopicIds = navParams.data.topicIds;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MatchingPage');
   }
 
   cancel() {

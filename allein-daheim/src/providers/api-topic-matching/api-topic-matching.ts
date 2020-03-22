@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ChatRequest } from './chat-request/chat-request';
 
 
 @Injectable()
@@ -12,7 +13,11 @@ export class ApiTopicMatchingProvider {
   }
 
   getTopics(): Observable<Topic[]> {
-    return this.http.get<Topic[]>(this.apiUrl+'/topics');
+    return this.http.get<Topic[]>(this.apiUrl + '/topics');
+  }
+
+  createNewChatRequest(chatRequest: ChatRequest): Observable<ChatRequest[]> {
+    return this.http.post<ChatRequest[]>(this.apiUrl + '/topics', chatRequest);
   }
 
 }
