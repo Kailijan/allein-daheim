@@ -6,6 +6,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TextchatPage } from '../pages/textchat/textchat';
 import { ChatListPage } from '../pages/chat-list/chat-list';
+import { MatchingPage } from '../pages/matching/matching';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { ChatListPage } from '../pages/chat-list/chat-list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ChatListPage;
+  rootPage: any = MatchingPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -25,7 +26,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'ChatList', component: ChatListPage }
+      { title: 'ChatList', component: ChatListPage },
+      { title: 'Matching', component: MatchingPage },
     ];
 
   }
