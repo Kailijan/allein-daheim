@@ -8,13 +8,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-6 col-md-4 col-xl-3 *ngFor="let topic of topics">
-        <button id="topicButton{{topic.id}}" ion-button icon-end (click)="checkbox.value=!checkbox.value">
+  <ion-grid class="topic-grid">
+    <ion-row class="topic-row">
+      <ion-col class="topic-col" *ngFor="let topic of topics" size="3">
+        <button id="topicButton{{topic.id}}" class="topic-button" ion-button icon-end
+          (click)="checkbox.value=!checkbox.value">
           {{topic.name}}
           <ion-checkbox #checkbox id="topicCheckBox{{topic.id}}" (ionChange)="updateSelectedTopics(topic, $event)">
           </ion-checkbox>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-end>
+      <ion-col>
+        <button ion-button class="search-button" ion-button (click)="sendSelectedTopicsIds()">
+          Suche starten
         </button>
       </ion-col>
     </ion-row>
