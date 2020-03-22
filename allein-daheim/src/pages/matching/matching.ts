@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ApiTopicMatchingProvider } from '../../providers/api-topic-matching/api-topic-matching';
+import { ChatRequest } from '../../providers/api-topic-matching/chat-request/chat-request';
+import { Observable } from 'rxjs';
+import { ApiUsersProvider } from '../../providers/api-users/api-users';
+import { ChatRequestResponse } from '../../providers/api-topic-matching/chat-request/chat-request-response';
 
 @IonicPage()
 @Component({
@@ -30,11 +35,55 @@ export class MatchingPage {
   ]
 
   private selectedTopicIds: number[];
+  private requestsData = new Array<ChatRequest>();
+  private requests = new Array<Observable<ChatRequestResponse>>();
+  private scanningForRequestAccept = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private matchService: ApiTopicMatchingProvider,
+    private userController: ApiUsersProvider) {
     this.infoTexts = this.infoTexts.sort(() => (Math.random() > 0.5) ? 1 : -1);
     this.selectedTopicIds = navParams.data.topicIds;
+    for (let i = 0; i < this.selectedTopicIds.length; i++) {
+      const data = {
+        topicId: this.selectedTopicIds[i],
+        userId: this.userController.getMyMessageId()
+      };
+      const $request = this.matchService.createNewChatRequest(data);
+      $request.subscribe(
+        (response) => this.onResponse(response, i),
+        (error) => this.onError(error, i)
+      )
+      this.requestsData.push(data);
+      this.requests.push($request);
+    }
+  }
 
+  onResponse(data: ChatRequestResponse, index: number) {
+    console.log('requestCreation success' + index);
+    console.log(data);
+    if (!this.scanningForRequestAccept) {
+      this.checkRequestAccepted(data);
+    }
+    this.scanningForRequestAccept = true;
+  }
+
+  onError(error: any, index: number) {
+    console.log('error at index: ' + index);
+    console.log(error);
+    console.log(this.requestsData[index]);
+  }
+
+  checkRequestAccepted(data: ChatRequestResponse) {
+    this.matchService.getChatRequest(data).subscribe((data) => {
+      if (!data) {
+        setTimeout(() => this.checkRequestAccepted(data), 750);
+        return;
+      }
+      this.loading = false
+    }, (error) => {
+      setTimeout(() => this.checkRequestAccepted(data), 1000);
+    });
   }
 
   cancel() {
