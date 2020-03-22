@@ -34,13 +34,15 @@ export class ChatStorageProvider {
         content:  'Hallo, ich bin ' + names[i],
         sent:     new Date(),
         sender:   i,
-        receiver: this.myMessageId };
+        receiver: this.myMessageId,
+        unread:   true };
       this.addMessage(newMessage);
       newMessage = {
           content:  'Hallo ' + names[i] + '!',
           sent:     new Date(),
           sender:   this.myMessageId,
-          receiver: i };
+          receiver: i,
+          unread:   true };
       this.addMessage(newMessage);
     }
   }
@@ -58,7 +60,16 @@ export class ChatStorageProvider {
     return this.$messages.map(
       (list) => list.filter((message) => {
         return message.receiver == chatId || message.sender == chatId;
-    }));
+      })
+    );
+  }
+
+  public getUnreadMessages(chatId: number): Observable<Array<TextMessage>> {
+    return this.getMessages(chatId).map(
+      (list) => list.filter((message) => {
+        return message.unread;
+      })
+    );
   }
 
   public getLastMessage(chatId: number): Observable<TextMessage> {
@@ -92,7 +103,11 @@ export class ChatStorageProvider {
         if (messageArray.filter((chat) => message.receiver == chat.receiver && message.sender == chat.sender).length == 0) {
           const receiverId = this.getChatId(message);
           const lastMsg = this.getLastMessage(receiverId);
-          messageArray.push({ receiver: receiverId, sender: receiverId == message.sender ? message.receiver : message.sender, lastMessage: lastMsg });
+          const unreadMsg = this.getUnreadMessages(receiverId);
+          messageArray.push({ receiver: receiverId,
+                              sender: receiverId == message.sender ? message.receiver : message.sender,
+                              lastMessage: lastMsg,
+                              unreadMessages: unreadMsg });
         }
       }
       $chats.next(messageArray);

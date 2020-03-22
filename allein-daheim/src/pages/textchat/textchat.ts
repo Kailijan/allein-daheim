@@ -66,7 +66,8 @@ export class TextchatPage implements AfterViewChecked {
     const newMessage = { content:  this.messageTextBox.value,
                          sent:     new Date(),
                          sender:   this.senderId,
-                         receiver: this.receiverId };
+                         receiver: this.receiverId,
+                         unread:   false };
     this.chatStorage.addMessage(newMessage);
     this.messageTextBox.value = '';
   }

@@ -3,4 +3,5 @@ export interface TextMessage {
   sent: Date;
   sender: number;
   receiver: number;
+  unread: boolean;
 }
