@@ -19,7 +19,7 @@
         <h2>{{ this.userController.getUser(chat.receiver)?.name }}</h2>
         <p>{{ (chat.lastMessage | async).content }}</p>
         <div class="item-note" item-end>
-          <ion-badge color="{{ (chat.unreadMessages | async).length > 0 ? 'primary' : 'secondary'}}">{{ (chat.unreadMessages | async).length }}</ion-badge>
+          <ion-badge *ngIf="(chat.unreadMessages | async).length > 0" color="primary">{{ (chat.unreadMessages | async).length }}</ion-badge>
         </div>
       </button>
     </ion-list>
