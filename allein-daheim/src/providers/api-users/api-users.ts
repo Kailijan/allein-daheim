@@ -40,9 +40,9 @@ export class ApiUsersProvider {
         console.log(error);
         $result.next({ name: 'Unbekannt', id: userId, lastSeen: null });
       });
+    } else {
+      $result.next(user);
     }
-    // return stored object or null instantly to show data or tell that there are none
-    $result.next(user);
     return $result;
   }
 

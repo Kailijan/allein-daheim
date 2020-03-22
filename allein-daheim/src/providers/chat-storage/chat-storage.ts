@@ -12,25 +12,21 @@ export class ChatStorageProvider {
   public $messages = new ReplaySubject<Array<TextMessage>>(1);
 
   constructor(private userService: ApiUsersProvider) {
-    const names = [
-      'Peter',
-      'Sandra',
-      'Max',
-      'Britney',
-      'Kai',
-      'Mario',
-      'Egbert',
-      'Tina'
-    ]
-    for (var i = 1; i <= 5; i++) {
+    this.addTestData();
+  }
+
+  private async addTestData() {
+    for (var i = 2; i <= 5; i++) {
+      const user = await this.userService.getUser(i).take(1).toPromise();
       let newMessage = {
-        content:  'Hallo, ich bin ' + names[i],
+        content:  'Hallo, ich bin ' + user.name,
         sent:     new Date(),
         sender:   i,
         receiver: this.userService.getMyMessageId(),
         unread:   true };
+      this.addMessage(newMessage);
       newMessage = {
-          content:  'Hallo ' + names[i] + '!',
+          content:  'Hallo ' + user.name + '!',
           sent:     new Date(),
           sender:   this.userService.getMyMessageId(),
           receiver: i,
