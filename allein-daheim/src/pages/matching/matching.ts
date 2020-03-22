@@ -5,6 +5,7 @@ import { ChatRequest } from '../../providers/api-topic-matching/chat-request/cha
 import { Observable } from 'rxjs';
 import { ApiUsersProvider } from '../../providers/api-users/api-users';
 import { ChatRequestResponse } from '../../providers/api-topic-matching/chat-request/chat-request-response';
+import { ChatListPage } from '../chat-list/chat-list';
 
 @IonicPage()
 @Component({
@@ -41,9 +42,12 @@ export class MatchingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private matchService: ApiTopicMatchingProvider,
-    private userController: ApiUsersProvider) {
+    public userController: ApiUsersProvider) {
     this.infoTexts = this.infoTexts.sort(() => (Math.random() > 0.5) ? 1 : -1);
     this.selectedTopicIds = navParams.data.topicIds;
+    if (!this.selectedTopicIds) {
+      this.selectedTopicIds = [ 2, 3 ];
+    }
     for (let i = 0; i < this.selectedTopicIds.length; i++) {
       const data = {
         topicId: this.selectedTopicIds[i],
@@ -74,16 +78,37 @@ export class MatchingPage {
     console.log(this.requestsData[index]);
   }
 
+  z = 0;
+
   checkRequestAccepted(data: ChatRequestResponse) {
-    this.matchService.getChatRequest(data).subscribe((data) => {
-      if (!data) {
+    console.log(data);
+
+    this.matchService.getChatRequest(data).subscribe((acceptData) => {
+      this.z++;
+      if (this.z > 5) {
+        this.onFound(5);
+        return;
+      }
+      if (!acceptData) {
         setTimeout(() => this.checkRequestAccepted(data), 750);
         return;
       }
       this.loading = false
     }, (error) => {
-      setTimeout(() => this.checkRequestAccepted(data), 1000);
+      setTimeout(() => this.checkRequestAccepted(error), 1000);
     });
+  }
+
+  matchUserId: number;
+
+  onFound(id: number) {
+    this.matchUserId = id;
+    this.loading = false;
+    setTimeout(() => this.navigateToChat(), 1500);
+  }
+
+  navigateToChat() {
+    this.navCtrl.push(ChatListPage, { receiverId: this.matchUserId } );
   }
 
   cancel() {

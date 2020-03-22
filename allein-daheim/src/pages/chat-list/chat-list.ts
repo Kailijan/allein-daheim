@@ -16,13 +16,20 @@ export class ChatListPage {
   public $chats: Observable<Array<Chat>>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    chatStorage: ChatStorageProvider,
+    private chatStorage: ChatStorageProvider,
     public userController: ApiUsersProvider) {
     this.$chats = chatStorage.getChats();
+    if (this.navParams.data.receiverId) {
+      this.showChatById(this.navParams.data.receiverId);
+    }
   }
 
   showChat(chat: Chat) {
-    this.navCtrl.push(TextchatPage, { receiveId: chat.receiver, sendId: chat.sender });
+    this.showChatById(chat.receiver);
+  }
+
+  showChatById(receiverId: number) {
+    this.navCtrl.push(TextchatPage, { receiveId: receiverId, sendId: this.userController.getMyMessageId() });
   }
 
 }

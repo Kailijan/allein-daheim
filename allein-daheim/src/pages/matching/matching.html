@@ -7,8 +7,11 @@
 
 <ion-content padding>
   <ion-grid>
-    <ion-row justify-content-center align-items-center style="height: 30vh" *ngIf="!loading">
-        <span class="ion-text-success">Match wurde gefunden!</span>
+    <ion-row justify-content-center align-items-end style="height: 30vh" *ngIf="!loading">
+      <h3>Match!</h3>
+    </ion-row>
+    <ion-row justify-content-center align-items-start style="height: 30vh" *ngIf="!loading">
+        <p>Ihr Match heißt {{(this.userController.getUser(matchUserId) | async)?.name}}</p>
     </ion-row>
     <ion-row justify-content-center align-items-center style="height: 30vh" *ngIf="loading">
       Suche nach einem Match

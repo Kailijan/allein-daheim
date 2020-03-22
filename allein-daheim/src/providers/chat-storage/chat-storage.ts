@@ -33,7 +33,9 @@ export class ChatStorageProvider {
         receiver: i,
         unread: true
       };
-      this.addMessage(newMessage);
+      if (i != 5) {
+        this.addMessage(newMessage);
+      }
     }
   }
 
