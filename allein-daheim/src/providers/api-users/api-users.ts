@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { User } from './user/user';
+import { Observable, ReplaySubject } from 'rxjs';
 /*
   Generated class for the ApiUsersProvider provider.
 
@@ -10,22 +11,44 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiUsersProvider {
 
-  private users = [
-  ]
+  private url = 'http://localhost:8080/api/users/';
 
-  constructor() {
-    console.log('Hello ApiUsersProvider Provider');
+  private myMessageId: number;
+
+  private users: Array<User>;
+
+  constructor(private http: HttpClient) {
+    this.users = new Array<User>();
+    this.myMessageId = 1;
   }
 
-  public getUser(userId: number) {
-    const filteredUsers = this.users.filter((user) => user.id == userId);
-    if (filteredUsers.length == 0)
-      return undefined;
-    return filteredUsers[0];
+  public getMyMessageId(): number {
+    return this.myMessageId;
   }
 
-  public addUser(userId: number, userName: string) {
-    this.users.push({ id: userId, name: userName });
+  public getUser(userId: number): Observable<User> {
+    let $result = new ReplaySubject<User>(1);
+    let user = this.users.find((user) => user.id == userId);
+    if (user === undefined) {
+      this.loadUser(userId).subscribe((user) => {
+        console.log(user);
+        if (user) {
+          this.users.push(user);
+        }
+        $result.next(user);
+      }, (error) => {
+        console.log(error);
+        $result.next({ name: 'Unbekannt', id: userId, lastSeen: null });
+      });
+    }
+    // return stored object or null instantly to show data or tell that there are none
+    $result.next(user);
+    return $result;
+  }
+
+  private loadUser(userId: number): Observable<User> {
+    console.log('lade user vom backend: ' + userId);
+    return this.http.get<User>(this.url + userId);
   }
 
 }

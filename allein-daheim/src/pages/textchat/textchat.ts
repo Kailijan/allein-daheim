@@ -42,7 +42,9 @@ export class TextchatPage implements AfterViewChecked {
     this.senderId = navParams.data.sendId;
     this.$messsages = this.chatStorage.getMessages(this.receiverId);
     this.chatStorage.setChatToReadState(this.receiverId);
-    this.receiverName = this.userService.getUser(this.receiverId).name;
+    this.userService.getUser(this.receiverId).subscribe((user) => {
+      this.receiverName = user.name;
+    });
   }
 
   ionViewDidLoad() {

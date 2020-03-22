@@ -11,36 +11,19 @@ export class ChatStorageProvider {
   private messageArray = new Array<TextMessage>();
   public $messages = new ReplaySubject<Array<TextMessage>>(1);
 
-  private myMessageId: number;
 
-  constructor(userService: ApiUsersProvider) {
-    this.myMessageId = 10;
-    userService.addUser(this.myMessageId, 'Ich');
-
-    const names = [
-      'Peter',
-      'Sandra',
-      'Max',
-      'Britney',
-      'Kai',
-      'Mario',
-      'Egbert',
-      'Tina'
-    ]
-
-    for (var i = 0; i < 8; i++) {
-      userService.addUser(i, names[i]);
+  constructor(private userService: ApiUsersProvider) {
+    for (var i = 1; i <= 5; i++) {
       let newMessage = {
         content:  'Hallo, ich bin ' + names[i],
         sent:     new Date(),
         sender:   i,
-        receiver: this.myMessageId,
+        receiver: this.userService.getMyMessageId(),
         unread:   true };
-      this.addMessage(newMessage);
       newMessage = {
           content:  'Hallo ' + names[i] + '!',
           sent:     new Date(),
-          sender:   this.myMessageId,
+          sender:   this.userService.getMyMessageId(),
           receiver: i,
           unread:   true };
       this.addMessage(newMessage);
@@ -54,9 +37,6 @@ export class ChatStorageProvider {
     this.$messages.next(this.messageArray);
   }
 
-  public getMyMessageId(): number {
-    return this.myMessageId;
-  }
 
   public addMessage(message: TextMessage) {
     this.messageArray.push(message);
@@ -113,7 +93,7 @@ export class ChatStorageProvider {
   }
 
   public getChatId(message: TextMessage): number {
-    return message.receiver == this.myMessageId ? message.sender : message.receiver;
+    return message.receiver == this.userService.getMyMessageId() ? message.sender : message.receiver;
   }
 
 
