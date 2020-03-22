@@ -15,6 +15,8 @@ import { Location } from '@angular/common';
 })
 export class MatchingPage {
 
+  public loading = true;
+
   public infoTexts = [
     { title: "", text: "Blockierte Cookies backen", author: "" },
     { title: "", text: "Suchfunktion kalibrieren", author: "" },
