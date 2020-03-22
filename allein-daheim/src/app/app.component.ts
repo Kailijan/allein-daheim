@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Nav, Platform } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { SearchPage } from '../pages/search/search';
 import { ChatListPage } from '../pages/chat-list/chat-list';
 import { MatchingPage } from '../pages/matching/matching';
 
@@ -14,7 +15,7 @@ import { MatchingPage } from '../pages/matching/matching';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = SearchPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -23,6 +24,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Search', component: SearchPage },
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
       { title: 'ChatList', component: ChatListPage },

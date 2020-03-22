@@ -15,6 +15,9 @@ import { ApiUsersProvider } from '../providers/api-users/api-users';
 import { ChatStorageProvider } from '../providers/chat-storage/chat-storage';
 import { ChatListPage } from '../pages/chat-list/chat-list';
 import { MatchingPage } from '../pages/matching/matching';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { SearchPage } from '../pages/search/search';
 
 @NgModule({
   declarations: [
@@ -23,12 +26,16 @@ import { MatchingPage } from '../pages/matching/matching';
     ListPage,
     TextchatPage,
     ChatListPage,
-    MatchingPage
+    MatchingPage,
+    SearchPage,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
+    ReactiveFormsModule,
+    BrowserModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,7 +44,8 @@ import { MatchingPage } from '../pages/matching/matching';
     ListPage,
     TextchatPage,
     ChatListPage,
-    MatchingPage
+    MatchingPage,
+    SearchPage,
   ],
   providers: [
     StatusBar,
