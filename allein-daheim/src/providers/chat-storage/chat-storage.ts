@@ -11,44 +11,47 @@ export class ChatStorageProvider {
   private messageArray = new Array<TextMessage>();
   public $messages = new ReplaySubject<Array<TextMessage>>(1);
 
-  private myMessageId = 50;
+  private myMessageId: number;
 
+  constructor(userService: ApiUsersProvider) {
+    this.myMessageId = 10;
+    userService.addUser(this.myMessageId, 'Ich');
 
-  getRandomInt(max): number {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-  makeid(length): string {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
- }
+    const names = [
+      'Peter',
+      'Sandra',
+      'Max',
+      'Britney',
+      'Kai',
+      'Mario',
+      'Egbert',
+      'Tina'
+    ]
 
-  constructor(private userService: ApiUsersProvider) {
-    this.myMessageId = this.getRandomInt(3030);
-    userService.addUser(this.myMessageId, 'Ich bins');
     for (var i = 0; i < 8; i++) {
-      const newMessage = {
-        content:  this.makeid(this.getRandomInt(235)),
+      userService.addUser(i, names[i]);
+      let newMessage = {
+        content:  'Hallo, ich bin ' + names[i],
         sent:     new Date(),
-        sender:   this.getRandomInt(3030),
-        receiver: this.myMessageId };
-      userService.addUser(newMessage.sender, Math.random().toString(36));
+        sender:   i,
+        receiver: this.myMessageId,
+        unread:   true };
+      this.addMessage(newMessage);
+      newMessage = {
+          content:  'Hallo ' + names[i] + '!',
+          sent:     new Date(),
+          sender:   this.myMessageId,
+          receiver: i,
+          unread:   true };
       this.addMessage(newMessage);
     }
-    for (var z = 0; z < 8; z++) {
-      const rec = this.getRandomInt(3030);
-      const newMessage = {
-        content:  this.makeid(this.getRandomInt(535)),
-        sent:     new Date(),
-        sender:   this.myMessageId,
-        receiver: rec};
-      userService.addUser(newMessage.receiver, Math.random().toString(36));
-      this.addMessage(newMessage);
-    }
+  }
+
+  private updateObservables(): void {
+    this.messageArray = this.messageArray.sort((a, b) => {
+      return a.sent.getTime() - b.sent.getTime();
+    });
+    this.$messages.next(this.messageArray);
   }
 
   public getMyMessageId(): number {
@@ -57,27 +60,53 @@ export class ChatStorageProvider {
 
   public addMessage(message: TextMessage) {
     this.messageArray.push(message);
-    this.$messages.next(this.messageArray);
+    this.updateObservables();
+  }
+
+  private filterMessagesByChatId(list: Array<TextMessage>, chatId: number): TextMessage[] {
+    return list.filter((message) => {
+      return message.receiver == chatId || message.sender == chatId;
+    });
+  }
+
+  private filterLastMessageByChatId(list: Array<TextMessage>, chatId: number): TextMessage {
+    let lastMessage: TextMessage;
+    this.filterMessagesByChatId(list, chatId).forEach((message) => {
+      if (lastMessage === undefined ||
+          lastMessage.sent <= message.sent) {
+            lastMessage = message;
+          }
+    });
+    return lastMessage;
+  }
+
+
+  public setChatToReadState(chatId: number): void {
+    for (let message of this.filterMessagesByChatId(this.messageArray, chatId)) {
+      message.unread = false;
+    }
+    this.updateObservables();
   }
 
   public getMessages(chatId: number): Observable<Array<TextMessage>> {
     return this.$messages.map(
+      list => this.filterMessagesByChatId(list, chatId)
+    );
+  }
+
+  public getUnreadMessages(chatId: number): Observable<Array<TextMessage>> {
+    return this.getMessages(chatId).map(
       (list) => list.filter((message) => {
-        return message.receiver == chatId || message.sender == chatId;
-    }));
+        return message.unread;
+      })
+    );
   }
 
   public getLastMessage(chatId: number): Observable<TextMessage> {
     const $lastMessage = new ReplaySubject<TextMessage>(1);
     this.getMessages(chatId)
           .subscribe((messageList) => {
-            let lastMessage: TextMessage;
-            for (let message of messageList) {
-              if (lastMessage === undefined ||
-                  lastMessage.sent < message.sent) {
-                    lastMessage = message;
-                  }
-            }
+            let lastMessage = this.filterLastMessageByChatId(messageList, chatId);
             $lastMessage.next(lastMessage);
           });
     return $lastMessage;
@@ -93,14 +122,23 @@ export class ChatStorageProvider {
     const $chats = new ReplaySubject<Array<Chat>>(1)
 
     this.$messages.subscribe((messageList) => {
-      const messageArray = new Array<Chat>();
+      let messageArray = new Array<Chat>();
       for (let message of messageList) {
         if (messageArray.filter((chat) => message.receiver == chat.receiver && message.sender == chat.sender).length == 0) {
           const receiverId = this.getChatId(message);
           const lastMsg = this.getLastMessage(receiverId);
-          messageArray.push({ receiver: receiverId, sender: receiverId == message.sender ? message.receiver : message.sender, lastMessage: lastMsg });
+          const unreadMsg = this.getUnreadMessages(receiverId);
+          messageArray.push({ receiver: receiverId,
+                              sender: receiverId == message.sender ? message.receiver : message.sender,
+                              lastMessage: lastMsg,
+                              unreadMessages: unreadMsg });
         }
       }
+      messageArray = messageArray.sort((a, b) => {
+        const sentA = this.filterLastMessageByChatId(messageList, a.receiver);
+        const sentB = this.filterLastMessageByChatId(messageList, b.receiver);
+        return sentB.sent.getTime() - sentA.sent.getTime();
+      });
       $chats.next(messageArray);
     });
 

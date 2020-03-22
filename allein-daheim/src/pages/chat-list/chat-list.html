@@ -11,22 +11,21 @@
   <div class="centered-content">
 
     <ion-list>
-      <ion-list-header>
+      <!-- <ion-list-header>
         Letzte Chats
-      </ion-list-header>
+      </ion-list-header> -->
 
       <button ion-item *ngFor="let chat of $messsages | async" (click)="showChat(chat)">
         <h2>{{ this.userController.getUser(chat.receiver)?.name }}</h2>
         <p>{{ (chat.lastMessage | async).content }}</p>
         <div class="item-note" item-end>
-          <ion-badge color="primary">0</ion-badge>
-          <!-- {{chat.unreadMessages}} -->
+          <ion-badge *ngIf="(chat.unreadMessages | async).length > 0" color="primary">{{ (chat.unreadMessages | async).length }}</ion-badge>
         </div>
       </button>
     </ion-list>
 
 
-    <ion-list showWhen="landscape">
+    <!-- <ion-list showWhen="landscape">
       <ion-item>
         <button color="danger" ion-button>
           <ion-icon name="trash"></ion-icon>
@@ -45,7 +44,7 @@
           </button>
         </ion-item-options>
       </ion-item-sliding>
-    </ion-list>
+    </ion-list> -->
 
   </div>
 </ion-content>
