@@ -18,7 +18,6 @@
           <p *ngIf="infoText.text.length>0">
             {{infoText.author.length>0 ? '"' : ''}}{{infoText.text}}{{infoText.author.length>0 ? '"' : ''}}
             {{infoText.title.length==0 ? '...' : ''}}
-
           </p>
           <p *ngIf="infoText.author.length>0" style="font-style: italic;">{{infoText.author}}</p>
         </ion-slide>
@@ -32,7 +31,7 @@
   <ion-toolbar>
     <ion-grid>
       <ion-row justify-content-center align-items-center>
-        <button ion-button color="danger">Suche abbrechen</button>
+        <button ion-button color="danger" (click)="cancel()">Suche abbrechen</button>
       </ion-row>
     </ion-grid>
   </ion-toolbar>

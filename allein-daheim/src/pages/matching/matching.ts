@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Location } from '@angular/common';
 /**
  * Generated class for the MatchingPage page.
  *
@@ -40,6 +40,10 @@ export class MatchingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MatchingPage');
+  }
+
+  cancel() {
+    this.navCtrl.pop();
   }
 
 }
