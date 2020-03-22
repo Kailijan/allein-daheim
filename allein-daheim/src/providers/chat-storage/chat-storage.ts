@@ -48,6 +48,9 @@ export class ChatStorageProvider {
   }
 
   private updateObservables(): void {
+    this.messageArray = this.messageArray.sort((a, b) => {
+      return a.sent.getTime() - b.sent.getTime();
+    });
     this.$messages.next(this.messageArray);
   }
 
@@ -65,6 +68,18 @@ export class ChatStorageProvider {
       return message.receiver == chatId || message.sender == chatId;
     });
   }
+
+  private filterLastMessageByChatId(list: Array<TextMessage>, chatId: number): TextMessage {
+    let lastMessage: TextMessage;
+    this.filterMessagesByChatId(list, chatId).forEach((message) => {
+      if (lastMessage === undefined ||
+          lastMessage.sent <= message.sent) {
+            lastMessage = message;
+          }
+    });
+    return lastMessage;
+  }
+
 
   public setChatToReadState(chatId: number): void {
     for (let message of this.filterMessagesByChatId(this.messageArray, chatId)) {
@@ -91,13 +106,7 @@ export class ChatStorageProvider {
     const $lastMessage = new ReplaySubject<TextMessage>(1);
     this.getMessages(chatId)
           .subscribe((messageList) => {
-            let lastMessage: TextMessage;
-            for (let message of messageList) {
-              if (lastMessage === undefined ||
-                  lastMessage.sent <= message.sent) {
-                    lastMessage = message;
-                  }
-            }
+            let lastMessage = this.filterLastMessageByChatId(messageList, chatId);
             $lastMessage.next(lastMessage);
           });
     return $lastMessage;
@@ -113,7 +122,7 @@ export class ChatStorageProvider {
     const $chats = new ReplaySubject<Array<Chat>>(1)
 
     this.$messages.subscribe((messageList) => {
-      const messageArray = new Array<Chat>();
+      let messageArray = new Array<Chat>();
       for (let message of messageList) {
         if (messageArray.filter((chat) => message.receiver == chat.receiver && message.sender == chat.sender).length == 0) {
           const receiverId = this.getChatId(message);
@@ -125,6 +134,11 @@ export class ChatStorageProvider {
                               unreadMessages: unreadMsg });
         }
       }
+      messageArray = messageArray.sort((a, b) => {
+        const sentA = this.filterLastMessageByChatId(messageList, a.receiver);
+        const sentB = this.filterLastMessageByChatId(messageList, b.receiver);
+        return sentB.sent.getTime() - sentA.sent.getTime();
+      });
       $chats.next(messageArray);
     });
 
