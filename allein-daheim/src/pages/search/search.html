@@ -8,25 +8,6 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-grid class="topic-grid">
-    <ion-row class="topic-row">
-      <ion-col class="topic-col" *ngFor="let topic of topics" size="3">
-        <button id="topicButton{{topic.id}}" class="topic-button" ion-button icon-end
-          (click)="checkbox.value=!checkbox.value">
-          {{topic.name}}
-          <ion-checkbox #checkbox id="topicCheckBox{{topic.id}}" (ionChange)="updateSelectedTopics(topic, $event)">
-          </ion-checkbox>
-        </button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="topic-row">
-      <ion-col>
-        <button ion-button class="search-button" ion-button (click)="sendSelectedTopicsIds()">
-          Suche starten
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
   <div class="centered-content">
     <ion-grid>
       <ion-row>
@@ -41,7 +22,9 @@
             <ion-card-content>
               <ion-item [color]="checkbox.checked ? 'primary' : 'light'">
                 <ion-label>{{checkbox.checked ? 'Ausgewählt' : 'Auswählen'}}</ion-label>
-                <ion-checkbox #checkbox [color]="checkbox.checked ? 'primary' : 'light'"></ion-checkbox>
+                <ion-checkbox #checkbox [color]="checkbox.checked ? 'primary' : 'light'"
+                  (ionChange)="updateSelectedTopics(topic, $event)">
+                </ion-checkbox>
               </ion-item>
             </ion-card-content>
           </ion-card>
@@ -50,3 +33,15 @@
     </ion-grid>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row justify-content-center>
+        <button ion-button color="secondary" (click)="sendSelectedTopicsIds()">
+          Suche starten
+        </button>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
