@@ -35,18 +35,16 @@ export class TextchatPage implements AfterViewChecked {
   public receiverName: string;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private chatStorage: ChatStorageProvider,
-              private userService: ApiUsersProvider) {
+      public navParams: NavParams,
+      private chatStorage: ChatStorageProvider,
+      private userService: ApiUsersProvider) {
     this.receiverId = navParams.data.receiveId;
     this.senderId = navParams.data.sendId;
     this.$messsages = this.chatStorage.getMessages(this.receiverId);
     this.chatStorage.setChatToReadState(this.receiverId);
-    this.receiverName = this.userService.getUser(this.receiverId).name;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TextchatPage');
+    this.userService.getUser(this.receiverId).subscribe((user) => {
+      this.receiverName = user.name;
+    });
   }
 
   ngAfterViewChecked() {
@@ -64,11 +62,13 @@ export class TextchatPage implements AfterViewChecked {
       return;
     }
 
-    const newMessage = { content:  this.messageTextBox.value,
-                         sent:     new Date(),
-                         sender:   this.senderId,
-                         receiver: this.receiverId,
-                         unread:   false };
+    const newMessage = {
+      content: this.messageTextBox.value,
+      sent: new Date(),
+      sender: this.senderId,
+      receiver: this.receiverId,
+      unread: false
+    };
     this.chatStorage.addMessage(newMessage);
     this.messageTextBox.value = '';
   }

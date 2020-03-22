@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Nav, Platform } from 'ionic-angular';
-import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { SearchPage } from '../pages/search/search';
 import { ChatListPage } from '../pages/chat-list/chat-list';
@@ -24,10 +23,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Search', component: SearchPage },
-      { title: 'Home', component: HomePage },
+      { title: 'Startseite', component: SearchPage },
       { title: 'List', component: ListPage },
-      { title: 'ChatList', component: ChatListPage },
+      { title: 'Chats', component: ChatListPage },
       { title: 'Matching', component: MatchingPage },
     ];
 

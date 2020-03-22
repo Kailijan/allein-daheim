@@ -1,9 +1,3 @@
-<!--
-  Generated template for the SuchePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
@@ -13,40 +7,15 @@
   </ion-navbar>
 </ion-header>
 
-<!-- <ion-content padding>
-    <div class="column small-12 large-2">
-        <label class="sbw_light">Title:</label><br />
-        <input type="text" list="topicsDataList" [(ngModel)]="selectedTopic" [formControl]="topicForm">
-        <datalist id="topicsDataList">
-            <option *ngFor="let topic of topics" value="{{topic}}">{{topic.name}}</option>
-        </datalist>
-    </div>
-</ion-content> -->
-
-<!-- <ion-list inset>
-    <ion-item *ngFor="let topic of topics">
-      <h2>{{topic.name}}</h2>
-      <p>{{topic.id}}</p>
-    </ion-item>
-  </ion-list> -->
-
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
-
-<!-- Responsive Layout with Ion Grid-->
 <ion-content>
   <ion-grid>
     <ion-row>
       <ion-col col-6 col-md-4 col-xl-3 *ngFor="let topic of topics">
-        <div>
-            <button id="topicButton{{topic.id}}" ion-button icon-end (click)="checkbox.value=!checkbox.value">
-                {{topic.name}}
-                <ion-checkbox #checkbox id="topicCheckBox{{topic.id}}" (ionChange)="updateSelectedTopics(topic, $event)"></ion-checkbox>
-              </button>
-        </div>
+        <button id="topicButton{{topic.id}}" ion-button icon-end (click)="checkbox.value=!checkbox.value">
+          {{topic.name}}
+          <ion-checkbox #checkbox id="topicCheckBox{{topic.id}}" (ionChange)="updateSelectedTopics(topic, $event)">
+          </ion-checkbox>
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>
