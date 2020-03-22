@@ -27,6 +27,8 @@ Das aktuelle Entwicklerteam besteht aus drei Auszubildenden/Studenten, die eine 
 
 Vielleicht kann es nach dem Hackathon noch wachsen :)
 
+# Kurzbeschreibung
+"AlleinDaheim" vernetzt interessenbasiert Menschen über Text-, Voice- oder Videochat miteinander. Anhand gewählter Themen wird man mit einem zufälligen User gematcht.
 
 # AlleinDaheim - Die App, die verbindet
 
