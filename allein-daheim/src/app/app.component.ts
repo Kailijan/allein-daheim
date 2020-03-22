@@ -16,17 +16,21 @@ export class MyApp {
 
   rootPage: any = SearchPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Chat Suche', component: SearchPage },
-      { title: 'List', component: ListPage },
-      { title: 'Chats', component: ChatListPage },
-      { title: 'Matching', component: MatchingPage },
+      { title: 'Chat Suche', component: SearchPage, icon: "search" },
+      { title: 'Chats', component: ChatListPage, icon: 'chatbubbles' },
+      { title: 'Account', component: ChatListPage, icon: 'person' },
+      { title: 'Tutorial und Hilfe', component: ChatListPage, icon: 'help' },
+      { title: 'Über diese App', component: ChatListPage, icon: 'information-circle' },
+
+      // { title: 'List', component: ListPage },
+      // { title: 'Matching', component: MatchingPage, icon: '' },
     ];
 
   }
