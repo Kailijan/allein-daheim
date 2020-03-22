@@ -11,8 +11,17 @@ export class ChatStorageProvider {
   private messageArray = new Array<TextMessage>();
   public $messages = new ReplaySubject<Array<TextMessage>>(1);
 
-
   constructor(private userService: ApiUsersProvider) {
+    const names = [
+      'Peter',
+      'Sandra',
+      'Max',
+      'Britney',
+      'Kai',
+      'Mario',
+      'Egbert',
+      'Tina'
+    ]
     for (var i = 1; i <= 5; i++) {
       let newMessage = {
         content:  'Hallo, ich bin ' + names[i],
