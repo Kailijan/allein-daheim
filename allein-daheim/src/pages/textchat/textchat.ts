@@ -1,17 +1,9 @@
 import { Component, ViewChild, trigger, state, style, transition, animate, AfterViewChecked, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ChatStorageProvider } from '../../providers/chat-storage/chat-storage';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Observable } from 'rxjs/Observable';
 import { TextMessage } from './text-message/text-message';
 import { ApiUsersProvider } from '../../providers/api-users/api-users';
-
-/**
- * Generated class for the TextchatPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 const KEYCODE_ENTER = 13;
 
@@ -40,15 +32,14 @@ export class TextchatPage implements AfterViewChecked {
   @Input() public senderId: number;
 
   public $messsages: Observable<Array<TextMessage>>;
+  public receiverName: string;
 
-  public receiverName = 'Peter';
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
               private chatStorage: ChatStorageProvider,
-              private userService: ApiUsersProvider) {
+              userService: ApiUsersProvider) {
     this.receiverId = navParams.data.receiveId;
     this.senderId = navParams.data.sendId;
-    console.log(this.receiverId);
     this.$messsages = this.chatStorage.getMessages(this.receiverId);
     this.receiverName = userService.getUser(this.receiverId).name;
   }
