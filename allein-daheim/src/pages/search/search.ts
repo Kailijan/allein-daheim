@@ -15,6 +15,16 @@ export class SearchPage {
 
   public topics: Topic[];
 
+  public topicIcons = [
+    'people',
+    'book',
+    'game-controller-b',
+    'chatboxes',
+    'information-circle',
+    'musical-note',
+    'football'
+  ]
+
   constructor(public navCtrl: NavController, public apiTopicMatchingProvider: ApiTopicMatchingProvider) {
     this.getTopics();
   }

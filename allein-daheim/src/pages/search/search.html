@@ -3,12 +3,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Suche</ion-title>
+    <ion-title>Chat Suche</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid class="topic-grid">
+  <!-- <ion-grid class="topic-grid">
     <ion-row class="topic-row">
       <ion-col class="topic-col" *ngFor="let topic of topics" size="3">
         <button id="topicButton{{topic.id}}" class="topic-button" ion-button icon-end
@@ -26,5 +26,27 @@
         </button>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
+  <div class="centered-content">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-xs-12 *ngFor="let topic of topics; let i = index">
+          <ion-card>
+            <ion-card-header>
+              <h1>
+                <ion-icon style="margin-left: 17px;margin-right: 15px;" [name]="topicIcons[i]"></ion-icon>
+                {{topic.name}}
+              </h1>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item [color]="checkbox.checked ? 'primary' : 'light'">
+                <ion-label>{{checkbox.checked ? 'Ausgewählt' : 'Auswählen'}}</ion-label>
+                <ion-checkbox #checkbox [color]="checkbox.checked ? 'primary' : 'light'"></ion-checkbox>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
