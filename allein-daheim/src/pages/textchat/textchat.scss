@@ -1,0 +1,31 @@
+page-textchat {
+  $message-margin: 20px;
+
+  .message-bubble {
+    border-radius: 10px 10px 10px 0px;
+    width: fit-content;
+    margin-right: $message-margin;
+    margin-left: 0;
+    padding: 6px 10px 6px 10px;
+    box-shadow: 0px 0px 10px -5px rgba(0,0,0,0.75);
+    word-break: break-all;
+    small {
+      margin-left: 8px;
+      color: grey;
+    }
+  }
+
+  .my-message {
+    box-shadow: 0px 0px 10px -3px rgba(0,0,0,0.75);
+    float: right;
+    small {
+      color: white;
+    }
+    background-color: map-get($colors, primary);
+    color: white;
+    margin-right: 0;
+    margin-left: $message-margin;
+    border-radius: 10px 10px 0px 10px;
+  }
+
+}

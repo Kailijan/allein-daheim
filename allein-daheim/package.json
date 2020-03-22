@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@angular/animations": "5.2.11",
+    "@angular/cli": "^9.0.7",
     "@angular/common": "5.2.11",
     "@angular/compiler": "5.2.11",
     "@angular/compiler-cli": "5.2.11",
@@ -31,8 +32,8 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.4",
-    "typescript": "2.6.2",
-    "braces": ">=2.3.1"
+    "braces": ">=2.3.1",
+    "typescript": "2.6.2"
   },
   "description": "An Ionic project"
 }

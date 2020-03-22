@@ -1,0 +1,46 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Matching</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row justify-content-center align-items-end style="height: 30vh" *ngIf="!loading">
+      <h3>Match!</h3>
+    </ion-row>
+    <ion-row justify-content-center align-items-start style="height: 8vh" *ngIf="!loading">
+        <p>Ihr Match heißt {{(this.userController.getUser(matchUserId) | async)?.name}}</p>
+    </ion-row>
+    <ion-row justify-content-center align-items-start style="height: 30vh" *ngIf="!loading">
+      <p>Euer Thema: <ion-badge color="secondary">Sprachen</ion-badge></p>
+  </ion-row>
+    <ion-row justify-content-center align-items-center style="height: 30vh" *ngIf="loading">
+      Suche nach einem Match
+      <ion-spinner name="dots" style="margin-left: 10px; "></ion-spinner>
+    </ion-row>
+    <ion-row justify-content-center align-items-center style="height: 30vh" *ngIf="loading">
+      <ion-slides #slider loop="true" pager="false" autoplay="5000">
+        <ion-slide *ngFor="let infoText of infoTexts">
+          <h5 *ngIf="infoText.title.length>0">{{infoText.title}}</h5>
+          <p *ngIf="infoText.text.length>0">
+            {{infoText.author.length>0 ? '"' : ''}}{{infoText.text}}{{infoText.author.length>0 ? '"' : ''}}
+            {{infoText.title.length==0 ? '...' : ''}}
+          </p>
+          <p *ngIf="infoText.author.length>0" style="font-style: italic;">{{infoText.author}}</p>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row justify-content-center align-items-center>
+        <button ion-button color="danger" (click)="cancel()">Suche abbrechen</button>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

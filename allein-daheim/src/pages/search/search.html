@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Chat Suche</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="centered-content">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-xs-12 *ngFor="let topic of topics; let i = index">
+          <ion-card>
+            <ion-card-header>
+              <h1>
+                <ion-icon style="margin-left: 17px;margin-right: 15px;" [name]="topicIcons[i]"></ion-icon>
+                {{topic.name}}
+              </h1>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item [color]="checkbox.checked ? 'primary' : 'light'">
+                <ion-label>{{checkbox.checked ? 'Ausgewählt' : 'Auswählen'}}</ion-label>
+                <ion-checkbox #checkbox [color]="checkbox.checked ? 'primary' : 'light'"
+                  (ionChange)="updateSelectedTopics(topic, $event)">
+                </ion-checkbox>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row justify-content-center>
+        <button ion-button color="secondary" (click)="sendSelectedTopicsIds()">
+          Suche starten
+        </button>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
