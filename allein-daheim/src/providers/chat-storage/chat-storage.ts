@@ -13,7 +13,7 @@ export class ChatStorageProvider {
 
   private myMessageId: number;
 
-  constructor(private userService: ApiUsersProvider) {
+  constructor(userService: ApiUsersProvider) {
     this.myMessageId = 10;
     userService.addUser(this.myMessageId, 'Ich');
 
