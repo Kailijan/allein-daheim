@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ApiTopicMatchingProvider } from '../../providers/api-topic-matching/api-topic-matching';
+import { HtmlParser } from '@angular/compiler';
 
 /**
  * Generated class for the SearchPage page.
@@ -18,6 +19,7 @@ import { ApiTopicMatchingProvider } from '../../providers/api-topic-matching/api
 export class SearchPage {
 
   public selectedTopic: Topic;
+  public selectedTopicsIds = [];
   public topicForm = new FormControl('topicName');
 
   // public topics = [
@@ -31,31 +33,46 @@ export class SearchPage {
 
   constructor(public navCtrl: NavController, public apiTopicMatchingProvider: ApiTopicMatchingProvider) {
     this.getTopics();
-    this.getUsers();
+    // this.getUsers();
   }
 
   ngOnInit() {
     console.log(this.topics
-  );
+    );
     this.topicForm.valueChanges.subscribe(change => {
       console.log(change);
     });
   }
 
-  getTopics(){
+  getTopics() {
     this.apiTopicMatchingProvider.getTopics()
-    .then(data => {
-      this.topics = data;
-      console.log(this.topics);
-    })
+      .then(data => {
+        this.topics = data;
+        console.log(this.topics);
+      })
   }
-  
-  getUsers(){
+
+  getUsers() {
     this.apiTopicMatchingProvider.getUsers()
-    .then(data => {
-      this.topics = data;
-      console.log(this.topics);
-    })
+      .then(data => {
+        this.users = data;
+        console.log(this.users);
+      })
+  }
+
+  addToSelectedTopics(selectedTopic: Topic, $event) {
+    var element = document.getElementById('topicButton' + selectedTopic.id);
+    if ($event.checked) {
+      let i = 0;
+      while (i < this.selectedTopicsIds.length) {
+
+      }
+
+      console.log(document.getElementById('topicButton' + selectedTopic.id));
+      console.log('addToSelectedTopics ' + selectedTopic.name);
+      this.selectedTopicsIds.push(selectedTopic.id);
+      console.log(this.selectedTopicsIds);
+    }
   }
 
   ionViewDidLoad() {

@@ -14,7 +14,7 @@ import { ChatListPage } from '../pages/chat-list/chat-list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ChatListPage;
+  rootPage: any = SearchPage;
 
   pages: Array<{title: string, component: any}>;
 
