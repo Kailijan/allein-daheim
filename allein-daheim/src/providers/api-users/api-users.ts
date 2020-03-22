@@ -11,7 +11,6 @@ import { Injectable } from '@angular/core';
 export class ApiUsersProvider {
 
   private users = [
-    { name: 'peter', id: 1 }
   ]
 
   constructor() {
