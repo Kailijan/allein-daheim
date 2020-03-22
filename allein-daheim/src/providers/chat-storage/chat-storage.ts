@@ -11,42 +11,36 @@ export class ChatStorageProvider {
   private messageArray = new Array<TextMessage>();
   public $messages = new ReplaySubject<Array<TextMessage>>(1);
 
-  private myMessageId = 50;
-
-
-  getRandomInt(max): number {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-  makeid(length): string {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
- }
+  private myMessageId: number;
 
   constructor(private userService: ApiUsersProvider) {
-    this.myMessageId = this.getRandomInt(3030);
-    userService.addUser(this.myMessageId, 'Ich bins');
+    this.myMessageId = 10;
+    userService.addUser(this.myMessageId, 'Ich');
+
+    const names = [
+      'Peter',
+      'Sandra',
+      'Max',
+      'Britney',
+      'Kai',
+      'Mario',
+      'Egbert',
+      'Tina'
+    ]
+
     for (var i = 0; i < 8; i++) {
-      const newMessage = {
-        content:  this.makeid(this.getRandomInt(235)),
+      userService.addUser(i, names[i]);
+      let newMessage = {
+        content:  'Hallo, ich bin ' + names[i],
         sent:     new Date(),
-        sender:   this.getRandomInt(3030),
+        sender:   i,
         receiver: this.myMessageId };
-      userService.addUser(newMessage.sender, Math.random().toString(36));
       this.addMessage(newMessage);
-    }
-    for (var z = 0; z < 8; z++) {
-      const rec = this.getRandomInt(3030);
-      const newMessage = {
-        content:  this.makeid(this.getRandomInt(535)),
-        sent:     new Date(),
-        sender:   this.myMessageId,
-        receiver: rec};
-      userService.addUser(newMessage.receiver, Math.random().toString(36));
+      newMessage = {
+          content:  'Hallo ' + names[i] + '!',
+          sent:     new Date(),
+          sender:   this.myMessageId,
+          receiver: i };
       this.addMessage(newMessage);
     }
   }
