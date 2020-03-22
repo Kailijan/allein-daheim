@@ -42,12 +42,14 @@
     <ion-row>
       <ion-col col-6 col-md-4 col-xl-3 *ngFor="let topic of topics">
         <div>
-        <button id="topicButton{{topic.id}}"ion-button icon-end>
-            {{topic.name}}
-          <ion-checkbox id="topicCheckBox{{topic.id}}" [(ngModel)]="topic.checked" (ionChange)="addToSelectedTopics(topic, $event)"></ion-checkbox>
-          </button>
+            <button id="topicButton{{topic.id}}" ion-button icon-end (click)="checkbox.value=!checkbox.value">
+                {{topic.name}}
+                <ion-checkbox #checkbox id="topicCheckBox{{topic.id}}" (ionChange)="addToSelectedTopics(topic, $event)"></ion-checkbox>
+              </button>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<!-- TODO: click on button also checks checkbox-->

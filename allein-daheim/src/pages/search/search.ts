@@ -28,7 +28,7 @@ export class SearchPage {
   //   { "id": 2, "name": "Gaming", "description": "Ihr sucht jemanden, den ihr bei CSGO so richtig fertig machen könnt? Oder würdet gerne zusammen eine eigene Welt in Minecraft erschaffen? Hier findet ihr eine/n Gleichgesinnte/n!"}
   // ];
 
-  topics: any;
+  topics: Topic[];
   users: any;
 
   constructor(public navCtrl: NavController, public apiTopicMatchingProvider: ApiTopicMatchingProvider) {
@@ -46,7 +46,7 @@ export class SearchPage {
 
   getTopics() {
     this.apiTopicMatchingProvider.getTopics()
-      .then(data => {
+      .subscribe(data => {
         this.topics = data;
         console.log(this.topics);
       })
@@ -54,25 +54,34 @@ export class SearchPage {
 
   getUsers() {
     this.apiTopicMatchingProvider.getUsers()
-      .then(data => {
+      .subscribe(data => {
         this.users = data;
         console.log(this.users);
       })
   }
 
-  addToSelectedTopics(selectedTopic: Topic, $event) {
-    var element = document.getElementById('topicButton' + selectedTopic.id);
+  updateSelectedTopics(selectedTopic: Topic, $event) {
     if ($event.checked) {
-      let i = 0;
-      while (i < this.selectedTopicsIds.length) {
-
-      }
-
-      console.log(document.getElementById('topicButton' + selectedTopic.id));
-      console.log('addToSelectedTopics ' + selectedTopic.name);
+      // console.log(document.getElementById('topicButton' + selectedTopic.id));
       this.selectedTopicsIds.push(selectedTopic.id);
+      console.log(selectedTopic.name);
       console.log(this.selectedTopicsIds);
+    } else {
+      this.selectedTopicsIds = this.removeFromArray(this.selectedTopicsIds, selectedTopic.id);
     }
+  }
+
+  removeFromArray(arr: any[], elementIndex: number) {
+    let i = 0;
+    let updatedArray = [];
+    while (i < arr.length) {
+      if (arr[i] != elementIndex) {
+        updatedArray.push(arr[i]);
+      }
+      i++;
+    }
+    console.log(updatedArray);
+    return updatedArray;
   }
 
   ionViewDidLoad() {

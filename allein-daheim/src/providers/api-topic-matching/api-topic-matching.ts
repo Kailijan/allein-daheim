@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 /*
   Generated class for the ApiTopicMatchingProvider provider.
@@ -15,24 +16,12 @@ export class ApiTopicMatchingProvider {
     console.log('Hello ApiTopicMatchingProvider Provider');
   }
 
-  getTopics() {
-    return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/topics').subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
+  getTopics(): Observable<Topic[]> {
+    return this.http.get<Topic[]>(this.apiUrl+'/topics');
   }
 
-  getUsers() {
-    return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/users').subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    });
+  getUsers(): Observable<Topic[]> {
+    return this.http.get<Topic[]>(this.apiUrl+'/users');
   }
 
   // optional addTopic():
