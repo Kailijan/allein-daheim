@@ -68,7 +68,7 @@ export class ChatStorageProvider {
             let lastMessage: TextMessage;
             for (let message of messageList) {
               if (lastMessage === undefined ||
-                  lastMessage.sent < message.sent) {
+                  lastMessage.sent <= message.sent) {
                     lastMessage = message;
                   }
             }
