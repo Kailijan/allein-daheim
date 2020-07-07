@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col style="max-width: 400px">
+          <h3>Login</h3>
+          <ion-input #email type="email" placeholder="your@email.com" required></ion-input>
+          <ion-input #password type="password" placeholder="Passwort" required></ion-input>
+          <ion-button (click)="login(email.value, password.value)">Anmelden</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

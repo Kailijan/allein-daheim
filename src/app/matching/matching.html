@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Matching</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 30vh" *ngIf="!loading">
+      <h3>Match gefunden!</h3>
+    </ion-row>
+    <ion-row class="ion-align-items-end ion-justify-content-center" style="height: 8vh" *ngIf="!loading">
+      <p>Name: {{(this.userController.getUser(matchUserId) | async)?.name}}</p>
+    </ion-row>
+    <ion-row class="ion-align-items-start ion-justify-content-center" style="height: 30vh" *ngIf="!loading">
+      <p>Euer Thema: <ion-badge color="primary">Sprachen</ion-badge></p>
+    </ion-row>
+    <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 30vh" *ngIf="loading" >
+      Suche nach einem Match
+      <ion-spinner name="dots" style="margin-left: 10px;"></ion-spinner>
+    </ion-row>
+    <ion-row style="height: 30vh" *ngIf="loading">
+      <ion-slides #slider loop="true" pager="false" autoplay="5000">
+        <ion-slide *ngFor="let infoText of infoTexts">
+          <h4 *ngIf="infoText.title.length>0">{{infoText.title}}</h4>
+          <p *ngIf="infoText.text.length>0">
+            {{infoText.author.length>0 ? '"' : ''}}{{infoText.text}}{{infoText.author.length>0 ? '"' : ''}}
+            {{infoText.title.length==0 ? '...' : ''}}
+          </p>
+          <p *ngIf="infoText.author.length>0" style="font-style: italic;">{{infoText.author}}</p>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center ion-justify-content-center">
+        <ion-button *ngIf="loading" color="danger" (click)="cancel()">Suche abbrechen</ion-button>
+        <ion-button *ngIf="!loading" color="success" (click)="navigateToChat()">Chat starten</ion-button>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

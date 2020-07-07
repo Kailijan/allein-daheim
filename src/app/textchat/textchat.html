@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Textchat mit {{receiverName}} </ion-title>
+    <div style="margin-left: 12px;">Euer Thema: <ion-badge color="primary">Sprachen</ion-badge></div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #messageListElement class="ion-padding">
+  <div class="centered-content">
+    <ion-grid>
+      <ion-row *ngFor="let message of $messsages | async" [class.ion-justify-content-start]="message.receiver!=receiverId" [class.ion-justify-content-end]="message.receiver==receiverId">
+        <ion-col @fadeIn>
+          <div class="message-bubble" [class.my-message]="message.receiver==receiverId">
+            {{message.content}}
+            <small>{{message.sent | date : 'HH:mm'}}</small>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="centered-content">
+      <ion-item>
+        <ion-input #messageTextBox type="text" placeholder="Nachricht eingeben" (keypress)="messageBoxKeypress($event.keyCode)"></ion-input>
+        <ion-button slot="end" style="width: 30px; height: 30px;" (click)="sendMessage()">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+
+
