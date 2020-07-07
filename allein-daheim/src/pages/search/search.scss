@@ -1,0 +1,41 @@
+// .topic-grid {
+//     padding-left: 100px;
+//     padding-right: 100px;
+// }
+
+.search-button {
+    width: 165px;
+    height: 60px;
+}
+
+@media only screen and (min-width: 768px) {
+  .topic-col {
+    width: 165px;
+    max-width: 24%;
+    margin-right: 1.2%;
+    border-left: 200px;
+    size: 3;
+  }
+}
+
+.topic-test{
+    column-count: 2;
+}
+
+@media (min-width: 768px) {
+  .topic-grid {
+    padding-top: 150px;
+  }
+}
+
+@media (min-width: 0px) {
+  .topic-row {
+    align-self: center;
+  }
+}
+
+@media (min-width: 0px) {
+  .topic-button {
+    width: 165px;
+  }
+}
